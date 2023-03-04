@@ -1,0 +1,75 @@
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+    <a href="/" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>Classboard</h2>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a class="nav-item nav-link
+                {% if request.path == classboard_view %}#}
+                    active
+                {% endif %}
+                    " aria-current="page" href="{% url 'classboard_view' %}">Расписание
+            </a>
+            <a class="nav-item nav-link
+                {% if request.path == view_teachers %}#}
+                    active
+                {% endif %}
+                    " aria-current="page" href="{% url 'teachers:view_teachers' %}">Учителя
+            </a>
+            <a class="nav-item nav-link
+                {% if request.path == subjects_view %}#}
+                    active
+                {% endif %}
+                    " aria-current="page" href="{% url 'subjects:subjects_view' %}">Предметы
+            </a>
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle 
+                {% if request.path == student_detail %}
+                    active
+                {% endif %}
+                    " aria-current="page" href="{% url 'students_view' %}">Студенты
+                </a>
+                <div class="dropdown-menu fade-down m-0">
+                    <a href="{% url 'student_add' %}" class="dropdown-item">Добавить студента</a>
+                
+                </div>
+            </div>
+            
+            {% if user.is_authenticated %}
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle 
+                    {% if request.path == articles_list %}
+                        active
+                    {% endif %}
+                        " aria-current="page" href="{% url 'articles:articles_list' %}">Статьи
+                    </a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="{% url 'articles:article_create' %}" class="dropdown-item">Добавить статью</a>
+                    
+                    </div>
+                </div>
+            {% else %}
+                <a class="nav-item nav-link
+                {% if request.path == articles_list %}}
+                    active
+                {% endif %}
+                    " aria-current="page" href="{% url 'articles:articles_list' %}">Статьи
+                </a>
+            {% endif %}
+                
+        <a href="
+        {% if user.is_authenticated %}
+            {% url 'logout' %}
+        {% else %}
+            {% url 'login' %}
+        {% endif %}
+
+        " class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"><i class="fa fa-arrow-right ms-3">
+        </i></a>
+    </div>
+</nav>
+<!-- Navbar End -->
